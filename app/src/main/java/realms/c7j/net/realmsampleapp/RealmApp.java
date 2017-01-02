@@ -21,6 +21,7 @@ public class RealmApp extends Application {
 
         Context context = getApplicationContext();
 
+        Realm.init(context);
         realmConfig = new RealmConfiguration.Builder()
                 .name("myrealm2.realm")
                 .schemaVersion(2)                   //don't forget to bump it up on change
