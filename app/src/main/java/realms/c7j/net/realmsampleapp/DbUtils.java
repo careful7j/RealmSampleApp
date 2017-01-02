@@ -73,13 +73,13 @@ public class DbUtils {
 
     public static void dropDatabase(Realm realm) {
         realm.beginTransaction();
-        realm.clear(Customer.class);
-        realm.clear(Order.class);
-        realm.clear(OrderItem.class);
-        realm.clear(Product.class);
-        realm.clear(Supplier.class);
-        realm.clear(Holding.class);
-        realm.clear(CustomerToOrder.class);
+        realm.delete(Customer.class);
+        realm.delete(Order.class);
+        realm.delete(OrderItem.class);
+        realm.delete(Product.class);
+        realm.delete(Supplier.class);
+        realm.delete(Holding.class);
+        realm.delete(CustomerToOrder.class);
         realm.commitTransaction();
     }
 

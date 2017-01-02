@@ -21,7 +21,7 @@ public class RealmApp extends Application {
 
         Context context = getApplicationContext();
 
-        realmConfig = new RealmConfiguration.Builder(context)
+        realmConfig = new RealmConfiguration.Builder()
                 .name("myrealm2.realm")
                 .schemaVersion(2)                   //don't forget to bump it up on change
 //                .encryptionKey(key.getBytes())      //enable database encryption
