@@ -6,6 +6,7 @@ import com.facebook.stetho.Stetho;
 import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
 
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 import io.realm.DynamicRealm;
 import io.realm.FieldAttribute;
@@ -61,14 +62,14 @@ public class DbUtils {
                         .build());
 
 //        if required some custom database access:
-//        RealmInspectorModulesProvider.builder(this)
-//                .withFolder(getCacheDir())
-//                .withEncryptionKey("encrypted.realm", key)
+//        RealmInspectorModulesProvider.builder(context)
+//                .withFolder(context.getCacheDir())
+////                .withEncryptionKey("encrypted.realm", key)
 //                .withMetaTables()
 //                .withDescendingOrder()
 //                .withLimit(1000)
 //                .databaseNamePattern(Pattern.compile(".+\\.realm"))
-//                .build()
+//                .build();
     }
 
 

@@ -13,6 +13,10 @@ android {
         versionName "2.2.1" //branch to migrate to realm 2.2.1
     }
     buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
