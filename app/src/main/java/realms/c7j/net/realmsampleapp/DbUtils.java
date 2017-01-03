@@ -59,6 +59,16 @@ public class DbUtils {
                         .enableDumpapp(Stetho.defaultDumperPluginsProvider(context))
                         .enableWebKitInspector(RealmInspectorModulesProvider.builder(context).build())
                         .build());
+
+//        if required some custom database access:
+//        RealmInspectorModulesProvider.builder(this)
+//                .withFolder(getCacheDir())
+//                .withEncryptionKey("encrypted.realm", key)
+//                .withMetaTables()
+//                .withDescendingOrder()
+//                .withLimit(1000)
+//                .databaseNamePattern(Pattern.compile(".+\\.realm"))
+//                .build()
     }
 
 
