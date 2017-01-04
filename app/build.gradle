@@ -9,7 +9,7 @@ android {
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
-        versionName "1.0"
+        versionName "1.0"   //Deprecated realm 0.87.4 example here
     }
     buildTypes {
         release {
