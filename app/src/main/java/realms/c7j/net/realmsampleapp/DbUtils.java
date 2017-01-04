@@ -6,6 +6,7 @@ import com.facebook.stetho.Stetho;
 import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
 
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 import io.realm.DynamicRealm;
 import io.realm.FieldAttribute;
@@ -59,6 +60,16 @@ public class DbUtils {
                         .enableDumpapp(Stetho.defaultDumperPluginsProvider(context))
                         .enableWebKitInspector(RealmInspectorModulesProvider.builder(context).build())
                         .build());
+
+//        if required some custom database access:
+//        RealmInspectorModulesProvider.builder(context)
+//                .withFolder(context.getCacheDir())
+////                .withEncryptionKey("encrypted.realm", key)
+//                .withMetaTables()
+//                .withDescendingOrder()
+//                .withLimit(1000)
+//                .databaseNamePattern(Pattern.compile(".+\\.realm"))
+//                .build();
     }
 
 
@@ -73,13 +84,13 @@ public class DbUtils {
 
     public static void dropDatabase(Realm realm) {
         realm.beginTransaction();
-        realm.clear(Customer.class);
-        realm.clear(Order.class);
-        realm.clear(OrderItem.class);
-        realm.clear(Product.class);
-        realm.clear(Supplier.class);
-        realm.clear(Holding.class);
-        realm.clear(CustomerToOrder.class);
+        realm.delete(Customer.class);
+        realm.delete(Order.class);
+        realm.delete(OrderItem.class);
+        realm.delete(Product.class);
+        realm.delete(Supplier.class);
+        realm.delete(Holding.class);
+        realm.delete(CustomerToOrder.class);
         realm.commitTransaction();
     }
 
@@ -92,42 +103,34 @@ public class DbUtils {
              @Override
              public void execute(Realm realm) {
 
-                 Customer customer1 = realm.createObject(Customer.class);
-                 customer1.setId(DbUtils.nextId());
+                 Customer customer1 = realm.createObject(Customer.class, DbUtils.nextId());
                  customer1.setName("Woo");
                  customer1.setCountry("China");
 
-                 Customer customer2 = realm.createObject(Customer.class);
-                 customer2.setId(DbUtils.nextId());
+                 Customer customer2 = realm.createObject(Customer.class, DbUtils.nextId());
                  customer2.setName("John");
                  customer2.setCountry("USA");
 
-                 Customer customer3 = realm.createObject(Customer.class);
-                 customer3.setId(DbUtils.nextId());
+                 Customer customer3 = realm.createObject(Customer.class, DbUtils.nextId());
                  customer3.setName("Kati");
                  customer3.setCountry("Finland");
 
-                 Supplier supplier1 = realm.createObject(Supplier.class);
-                 supplier1.setId(DbUtils.nextId());
+                 Supplier supplier1 = realm.createObject(Supplier.class, DbUtils.nextId());
                  supplier1.setName("Karl Zeiss");
                  supplier1.setCountry("Germany");
 
-                 Supplier supplier2 = realm.createObject(Supplier.class);
-                 supplier2.setId(DbUtils.nextId());
+                 Supplier supplier2 = realm.createObject(Supplier.class, DbUtils.nextId());
                  supplier2.setName("Mithuna Foods Company");
                  supplier2.setCountry("India");
 
-                 Supplier supplier3 = realm.createObject(Supplier.class);
-                 supplier3.setId(DbUtils.nextId());
+                 Supplier supplier3 = realm.createObject(Supplier.class, DbUtils.nextId());
                  supplier3.setName("Sri Ramakrishna Agencies");
                  supplier3.setCountry("India");
 
-                 Holding holding1 = realm.createObject(Holding.class);
-                 holding1.setId(DbUtils.nextId());
+                 Holding holding1 = realm.createObject(Holding.class, DbUtils.nextId());
                  holding1.setName("HCBC Holdings");
 
-                 Holding holding2 = realm.createObject(Holding.class);
-                 holding2.setId(DbUtils.nextId());
+                 Holding holding2 = realm.createObject(Holding.class, DbUtils.nextId());
                  holding2.setName("Rise Holdings");
 
                  RealmList<Holding> holdingsList1 = new RealmList<Holding>();
@@ -175,23 +178,19 @@ public class DbUtils {
                 Supplier supplier3 = list.first();
 
 
-                Product product1 = realm.createObject(Product.class);
-                product1.setId(DbUtils.nextId());
+                Product product1 = realm.createObject(Product.class, DbUtils.nextId());
                 product1.setName("Nokia N82 Glass");
                 product1.setSupplier(supplier1);
 
-                Product product2 = realm.createObject(Product.class);
-                product2.setId(DbUtils.nextId());
+                Product product2 = realm.createObject(Product.class, DbUtils.nextId());
                 product2.setName("Sony Xperia Z5 Glass");
                 product2.setSupplier(supplier1);
 
-                Product product3 = realm.createObject(Product.class);
-                product3.setId(DbUtils.nextId());
+                Product product3 = realm.createObject(Product.class, DbUtils.nextId());
                 product3.setName("Sweet Potato");
                 product3.setSupplier(supplier2);
 
-                Product product4 = realm.createObject(Product.class);
-                product4.setId(DbUtils.nextId());
+                Product product4 = realm.createObject(Product.class, DbUtils.nextId());
                 product4.setName("Sweet Potato");
                 product4.setSupplier(supplier3);
 
@@ -210,18 +209,15 @@ public class DbUtils {
                         .equalTo("name", "Kati")
                         .findFirst();
 
-                OrderItem orderItem1 = realm.createObject(OrderItem.class);
-                orderItem1.setId(DbUtils.nextId());
+                OrderItem orderItem1 = realm.createObject(OrderItem.class, DbUtils.nextId());
                 orderItem1.setProduct(product3);
                 orderItem1.setAmount(1);
 
-                OrderItem orderItem2 = realm.createObject(OrderItem.class);
-                orderItem2.setId(DbUtils.nextId());
+                OrderItem orderItem2 = realm.createObject(OrderItem.class, DbUtils.nextId());
                 orderItem2.setProduct(product4);
                 orderItem2.setAmount(1);
 
-                Order order1 = realm.createObject(Order.class);
-                order1.setId(DbUtils.nextId());
+                Order order1 = realm.createObject(Order.class, DbUtils.nextId());
                 order1.setCustomer(customer1);
                 RealmList<OrderItem> orderItemList = new RealmList<>();
                 orderItemList.add(orderItem1);
@@ -229,18 +225,15 @@ public class DbUtils {
                 order1.setOrderItem(orderItemList);
 
 
-                OrderItem orderItem3 = realm.createObject(OrderItem.class);
-                orderItem3.setId(DbUtils.nextId());
+                OrderItem orderItem3 = realm.createObject(OrderItem.class, DbUtils.nextId());
                 orderItem3.setProduct(product1);
                 orderItem3.setAmount(2);
 
-                OrderItem orderItem4 = realm.createObject(OrderItem.class);
-                orderItem4.setId(DbUtils.nextId());
+                OrderItem orderItem4 = realm.createObject(OrderItem.class, DbUtils.nextId());
                 orderItem4.setProduct(product2);
                 orderItem4.setAmount(3);
 
-                Order order2 = realm.createObject(Order.class);
-                order2.setId(DbUtils.nextId());
+                Order order2 = realm.createObject(Order.class, DbUtils.nextId());
                 order2.setCustomer(customer2);
                 RealmList<OrderItem> orderItemList2 = new RealmList<>();
                 orderItemList2.add(orderItem3);
@@ -248,40 +241,34 @@ public class DbUtils {
                 order2.setOrderItem(orderItemList2);
 
 
-                Order order3 = realm.createObject(Order.class);
-                order3.setId(DbUtils.nextId());
+                Order order3 = realm.createObject(Order.class, DbUtils.nextId());
                 order3.setCustomer(customer3);
                 RealmList<OrderItem> orderItemList3 = new RealmList<>();
                 orderItemList3.add(orderItem1);
                 orderItemList3.add(orderItem2);
                 order3.setOrderItem(orderItemList3);
 
-                Order order4 = realm.createObject(Order.class);
-                order4.setId(DbUtils.nextId());
+                Order order4 = realm.createObject(Order.class, DbUtils.nextId());
                 order4.setCustomer(customer1);
 
 
                 //Customer1 has order1
-                CustomerToOrder c1o1 = realm.createObject(CustomerToOrder.class);
-                c1o1.setId(DbUtils.nextId());
+                CustomerToOrder c1o1 = realm.createObject(CustomerToOrder.class, DbUtils.nextId());
                 c1o1.setCustomer(customer1);
                 c1o1.setOrder(order1);
 
                 //Customer1 has order2
-                CustomerToOrder c1o2 = realm.createObject(CustomerToOrder.class);
-                c1o2.setId(DbUtils.nextId());
+                CustomerToOrder c1o2 = realm.createObject(CustomerToOrder.class, DbUtils.nextId());
                 c1o2.setCustomer(customer1);
                 c1o2.setOrder(order2);
 
                 //Customer2 has order1
-                CustomerToOrder c2o1 = realm.createObject(CustomerToOrder.class);
-                c2o1.setId(DbUtils.nextId());
+                CustomerToOrder c2o1 = realm.createObject(CustomerToOrder.class, DbUtils.nextId());
                 c2o1.setCustomer(customer2);
                 c2o1.setOrder(order1);
 
                 //Customer3 has order3
-                CustomerToOrder c3o3 = realm.createObject(CustomerToOrder.class);
-                c3o3.setId(DbUtils.nextId());
+                CustomerToOrder c3o3 = realm.createObject(CustomerToOrder.class, DbUtils.nextId());
                 c3o3.setCustomer(customer3);
                 c3o3.setOrder(order3);
 
@@ -318,8 +305,7 @@ public class DbUtils {
                 order2.setCustomerToOrder(listO2);
                 order3.setCustomerToOrder(listO3);
 
-                ShareHolder shareHolder = realm.createObject(ShareHolder.class);
-                shareHolder.setId(DbUtils.nextId());
+                ShareHolder shareHolder = realm.createObject(ShareHolder.class, DbUtils.nextId());
                 shareHolder.setName("Major Investments");
                 shareHolder.setCitizenship("PRC");
                 shareHolder.setHolding(realm.where(Holding.class).findFirst());
