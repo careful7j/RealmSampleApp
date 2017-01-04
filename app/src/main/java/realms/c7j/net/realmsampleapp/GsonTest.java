@@ -54,6 +54,7 @@ public class GsonTest {
                 .registerTypeAdapter(Class.forName("io.realm.HoldingRealmProxy"), new HoldingSerializer())
                 .create();
 
+            L.t("-= Test parse JSON =-");
             String json1 = gson.toJson(realm.where(Customer.class).findFirst());
             L.t(json1);
             String json2 = gson.toJson(realm.where(Supplier.class).findFirst());
